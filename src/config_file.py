@@ -1,9 +1,19 @@
 from collections import namedtuple
 from primitive_set import primitiveSet
+from tensorboardcolab import TensorBoardColab
 
 #######################################
 # Here we define a config for training.
 #######################################
+
+# TODO set/get URL and port.
+tbc = TensorBoardColab()
+print(tbc)
+
+def tb_callback(res):
+    tb_callback.counter += 1
+    tbc.save_value("Optimisation loss progression (lower is better)", "loss", tb_callback.counter, res.fun)
+tb_callback.counter = 0
 
 Config = namedtuple('Config', "cartesian_params oneplus_params gym_params")
 config = Config(
@@ -29,12 +39,13 @@ config = Config(
         'random_state': 13,
         'seed': None,
         'callback': lambda res: print("Loss of the last generation (lower is better): %.3f" % res.fun),
+        #'callback': tb_callback,
     },
     # Parameters defining the openAI gym game.
     gym_params = {
         'game_name': 'Boxing-v0',
-        'num_episodes': 1, # Number of box rounds.
-        'timesteps': 300, # Time steps of one box round.
+        'num_episodes': 10, # Number of box rounds.
+        'timesteps': 200, # Time steps of one box round.
         'render': True # Do we want to see the game?
     }
 )

@@ -26,7 +26,7 @@ def optimisation_fce(individual, consts=()):
     evolved_fce = individual
     # Go through all episodes.
     for episode in range(num_episodes):
-        observation = env.reset()
+        observation = env.reset() / 255.0
         rewards = np.zeros(timesteps)
         # Go through all timesteps.
         for t in range(timesteps):
@@ -41,10 +41,12 @@ def optimisation_fce(individual, consts=()):
             action = np.argmax(values)
             # Play the action.
             observation, reward, done, _ = env.step(action)
+            observation = observation / 255.0
             rewards[t] = reward
             if done:
                 break
         reward_sums[episode] = np.sum(rewards)
+    print(-reward_sums)
     # Return mean sum of rewards per episodes (negative because we minimise).
     return -np.mean(reward_sums)
 
