@@ -9,7 +9,7 @@ primitives = [
             # TODO ...
             # A set of functions (defined in cgp_functions.py) goes here.
             cgp_add,
-            cgp_mult,
+            cgp_aminus,
             cgp_mult,
             cgp_inv,
 

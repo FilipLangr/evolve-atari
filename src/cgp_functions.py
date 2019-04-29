@@ -130,3 +130,8 @@ cgp_nop = Primitive("nop", lambda x: x, 1)
 # TODO cgp_constvectord = Primitive("constvectord", lambda x: , 1)
 cgp_zeros = Primitive("zeros", lambda x: np.zeros(shape=x.shape) if isinstance(x, np.ndarray) else x, 1)
 cgp_ones = Primitive("ones", lambda x: np.ones(shape=x.shape) if isinstance(x, np.ndarray) else x, 1)
+
+############################## Other functions ##############################
+
+classic_mult = Primitive("classic_mult", lambda x, y: x*y, 2)
+classic_add = Primitive("classic_plus", lambda x, y: x+y, 2)

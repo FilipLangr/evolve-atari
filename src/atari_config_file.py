@@ -1,28 +1,28 @@
 from collections import namedtuple
-from primitive_set import primitiveSet
-from tensorboardcolab import TensorBoardColab
+from atari_primitive_set import primitiveSet
+#from tensorboardcolab import TensorBoardColab
 
 #######################################
 # Here we define a config for training.
 #######################################
 
 # TODO set/get URL and port.
-tbc = TensorBoardColab()
-print(tbc)
+#tbc = TensorBoardColab()
+#print(tbc)
 
-def tb_callback(res):
-    tb_callback.counter += 1
-    tbc.save_value("Optimisation loss progression (lower is better)", "loss", tb_callback.counter, res.fun)
-tb_callback.counter = 0
+#def tb_callback(res):
+#    tb_callback.counter += 1
+#    tbc.save_value("Optimisation loss progression (lower is better)", "loss", tb_callback.counter, res.fun)
+#tb_callback.counter = 0
 
 Config = namedtuple('Config', "cartesian_params oneplus_params gym_params")
 config = Config(
     # Parameters defining the CGP graph.
     cartesian_params = {
         'primitive_set': primitiveSet,
-        'n_columns': 4,
+        'n_columns': 11,
         'n_rows': 1,
-        'n_back': 2, # How far can a node in the matrix look back for its inputs?
+        'n_back': 7, # How far can a node in the matrix look back for its inputs?
         'n_out': 18, # Number of output nodes, we have 18 actions.
     },
     # Parameters defining the optimisation process by one plus lambda.
@@ -45,7 +45,7 @@ config = Config(
     gym_params = {
         'game_name': 'Boxing-v0',
         'num_episodes': 10, # Number of box rounds.
-        'timesteps': 200, # Time steps of one box round.
-        'render': True # Do we want to see the game?
+        'timesteps': 100, # Time steps of one box round.
+        'render': False # Do we want to see the game?
     }
 )
