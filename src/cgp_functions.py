@@ -50,7 +50,7 @@ def cgp_inner_sqrtxy(x, y):
 
 cgp_add = Primitive("add", lambda x, y: sum(*common_submatrices(x, y)) / 2.0 if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (x+y)/2.0, 2)
 cgp_aminus = Primitive("aminus", lambda x, y: np.abs(sum(*common_submatrices(x, -y))) / 2.0 if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else np.abs(x-y)/2.0, 2)
-cgp_mult = Primitive("mult", lambda x, y: np.mult(*common_submatrices(x, y)) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else x*y, 2)
+cgp_mult = Primitive("mult", lambda x, y: np.multiply(*common_submatrices(x, y)) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else x*y, 2)
 # TODO cmult
 cgp_inv = Primitive("inverse", lambda x: scaled_array(np.divide(1, x)) if isinstance(x, np.ndarray) else scaled_scalar(np.divide(1, x)), 1)
 cgp_abs = Primitive("abs", lambda x: np.abs(x), 1)
