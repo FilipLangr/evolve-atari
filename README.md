@@ -3,7 +3,7 @@ Evolution of AI for playing Atari games (we start with Boxing game) using Cartes
 
 This is a source code of the project for Evolutionary Computing course at RMIT.
 
-## Instalation
+## Installation
 Make sure you have `python3.7` installed. Then install requirements with:
 
 `pip3.7 install -r requirements.txt`
