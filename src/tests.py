@@ -40,4 +40,4 @@ if __name__ == "__main__":
     for p in primitives:
         if not isinstance(p, Symbol):
             test_fce(p)
-print("ALL FUNCTIONS PASSED THE TEST!")
+    print("ALL FUNCTIONS PASSED THE TEST!")
