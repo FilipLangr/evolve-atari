@@ -5,6 +5,12 @@ import tensorboard
 import tensorflow as tf
 from tensorflow.core.framework import summary_pb2
 import pickle
+import os
+
+if not os.path.exists("tb/"):
+    os.makedirs("tb/")
+if not os.path.exists("pickles/"):
+    os.makedirs("pickles/")
 
 def save_result(res):
     with open('pickles/best_res.pickle', 'wb') as f:
