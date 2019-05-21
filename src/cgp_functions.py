@@ -20,6 +20,10 @@ def float2index(vector, y):
     return np.min(np.max((l-1) * index_f, 0.0), l-1)
 
 def common_submatrices(x, y):
+    if len(x.shape) == 1:
+        x = np.expand_dims(x, 0)
+    if len(y.shape) == 1:
+        y = np.expand_dims(y, 0)
     (x1, x2), (y1, y2) = x.shape, y.shape
     n1, n2 = min(x1, y1), min(x2, y2)
     return x[0:n1, 0:n2], y[0:n1, 0:n2]
@@ -41,7 +45,7 @@ def scaled_scalar(number):
 def cgp_inner_ypow(x, y):
     if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)):
         x, y = common_submatrices(x, y)
-    return np.pow(np.abs(x), np.abs(y))
+    return np.power(np.abs(x), np.abs(y))
 
 def cgp_inner_sqrtxy(x, y):
     if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)):

@@ -15,15 +15,17 @@ def train():
     env.close()
     return res
 
-@optimize_constants
-def optimisation_fce(individual, consts=()):
+#@optimize_constants
+#def optimisation_fce(individual, consts=()):
+def optimisation_fce(individual):
     num_episodes = config.gym_params['num_episodes']
     timesteps = config.gym_params['timesteps']
     reward_sums = np.zeros(num_episodes)
     render = config.gym_params['render']
 
     # Get evolved function.
-    evolved_fce = individual
+    #evolved_fce = individual
+    evolved_fce = compile(individual)
     # Go through all episodes.
     for episode in range(num_episodes):
         observation = env.reset() / 255.0
@@ -34,7 +36,8 @@ def optimisation_fce(individual, consts=()):
                 env.render()
                 #time.sleep(0.05)
             # Evaluate evolved function and get 18 values for 18 actions.
-            values = evolved_fce(*np.transpose(observation), *consts)
+            #values = evolved_fce(*np.transpose(observation), *consts)
+            values = evolved_fce(*np.transpose(observation))
             # If any value is matrix, take the average of it.
             values = np.array([np.mean(y) for y in values])
             # Get the index of highest value, it's our action.

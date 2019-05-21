@@ -1,6 +1,9 @@
 from collections import namedtuple
 from atari_primitive_set import primitiveSet
 #from tensorboardcolab import TensorBoardColab
+import tensorboard
+import tensorflow as tf
+from tensorflow.core.framework import summary_pb2
 
 #######################################
 # Here we define a config for training.
@@ -10,10 +13,14 @@ from atari_primitive_set import primitiveSet
 #tbc = TensorBoardColab()
 #print(tbc)
 
-#def tb_callback(res):
-#    tb_callback.counter += 1
-#    tbc.save_value("Optimisation loss progression (lower is better)", "loss", tb_callback.counter, res.fun)
-#tb_callback.counter = 0
+tb_writer = tf.summary.FileWriter('./')
+def tb_callback(res):
+    print("Loss of the last generation (lower is better): %.3f" % res.fun)
+    val = summary_pb2.Summary.Value(tag="Training loss", simple_value=res.fun)
+    summary = summary_pb2.Summary(value=[val])
+    tb_writer.add_summary(summary, tb_callback.cntr)
+    tb_callback.cntr += 1
+tb_callback.cntr = 0
 
 Config = namedtuple('Config', "cartesian_params oneplus_params gym_params")
 config = Config(
@@ -38,14 +45,14 @@ config = Config(
         'n_jobs': 1, # Number of parallel jobs, if we go parallel.
         'random_state': 13,
         'seed': None,
-        'callback': lambda res: print("Loss of the last generation (lower is better): %.3f" % res.fun),
-        #'callback': tb_callback,
+        #'callback': lambda res: print("Loss of the last generation (lower is better): %.3f" % res.fun),
+        'callback': tb_callback,
     },
     # Parameters defining the openAI gym game.
     gym_params = {
         'game_name': 'Boxing-v0',
-        'num_episodes': 10, # Number of box rounds.
-        'timesteps': 100, # Time steps of one box round.
+        'num_episodes': 1, # Number of box rounds.
+        'timesteps': 500, # Time steps of one box round.
         'render': False # Do we want to see the game?
     }
 )
