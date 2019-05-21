@@ -3,6 +3,14 @@ Evolution of AI for playing Atari games (we start with Boxing game) using Cartes
 
 This is a source code of the project for Evolutionary Computing course at RMIT.
 
-Jupyter notebook preliminary_experiments.ipynb contains our simple implementation of evolutionary algorithm with tournament selection method, crossover using the blending method and mutation. It is used to evolve a weight vector for linear model of simple CartPole environment.
+## Instalation
+Make sure you have `python3.7` installed. Then install requirements with:
 
-In src/ folder a framework for training programs for openAI environments using Cartesian Genetic Programming is implemented. To perform training on Atari game (Boxing game by default), just run `python3 atari_evolve.py`. You can also specify training parameters and function pool in `atari_config_file.py`, `atari_primitive_set.py` and `cgp_functions.py`. Files with `cartpole_` prefix show our CGP framework on a simple CartPole example.
+`pip3.7 install -r requirements.txt`
+
+## Running
+
+In `src/` folder, a framework for training programs for openAI environments using Cartesian Genetic Programming is implemented. To perform training on Atari game (Boxing game by default), just run `python3.7 atari_evolve.py`. You can also specify training parameters and function pool in `atari_config_file.py`, `atari_primitive_set.py` and `cgp_functions.py`. Files with `cartpole_` prefix show our CGP framework on a simple CartPole example.
+
+## Preliminary experiments
+Jupyter notebook `preliminary_experiments.ipynb` contains our simple implementation of evolutionary algorithm with tournament selection method, crossover using the blending method and mutation. It is used to evolve a weight vector for linear model of simple CartPole environment.
