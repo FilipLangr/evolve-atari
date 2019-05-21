@@ -4,23 +4,26 @@ from atari_primitive_set import primitiveSet
 import tensorboard
 import tensorflow as tf
 from tensorflow.core.framework import summary_pb2
+import pickle
 
-#######################################
-# Here we define a config for training.
-#######################################
+def save_result(res):
+    with open('pickles/best_res.pickle', 'wb') as f:
+        pickle.dump(res, f)
 
-# TODO set/get URL and port.
-#tbc = TensorBoardColab()
-#print(tbc)
-
-tb_writer = tf.summary.FileWriter('./')
+tb_writer = tf.summary.FileWriter('tb/')
 def tb_callback(res):
     print("Loss of the last generation (lower is better): %.3f" % res.fun)
     val = summary_pb2.Summary.Value(tag="Training loss", simple_value=res.fun)
     summary = summary_pb2.Summary(value=[val])
     tb_writer.add_summary(summary, tb_callback.cntr)
     tb_callback.cntr += 1
+    save_result(res)
+
 tb_callback.cntr = 0
+
+#######################################
+# Here we define a config for training.
+#######################################
 
 Config = namedtuple('Config', "cartesian_params oneplus_params gym_params")
 config = Config(

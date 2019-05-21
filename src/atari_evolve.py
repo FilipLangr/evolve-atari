@@ -3,7 +3,7 @@ from cartesian.cgp import *
 from cartesian.algorithm import oneplus, optimize_constants
 import numpy as np
 import time
-from atari_config_file import config
+from atari_config_file import config, save_result
 
 env = gym.make(config.gym_params['game_name']).env
 
@@ -54,4 +54,5 @@ def optimisation_fce(individual):
 
 if __name__ == '__main__':
     res = train()
+    save_result(res)
     print(res)
