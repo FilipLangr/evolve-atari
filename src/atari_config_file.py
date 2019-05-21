@@ -1,7 +1,6 @@
 from collections import namedtuple
 from atari_primitive_set import primitiveSet
 #from tensorboardcolab import TensorBoardColab
-import tensorboard
 import tensorflow as tf
 from tensorflow.core.framework import summary_pb2
 import pickle
