@@ -17,7 +17,7 @@ def float2index(vector, y):
     """
     l = vector.shape[0]
     index_f = np.mean(np.abs((y + 1) / 2))
-    return np.min(np.max((l-1) * index_f, 0.0), l-1)
+    return int(np.min((np.max(((l-1) * index_f, 0)), l-1)))
 
 def common_submatrices(x, y):
     if len(x.shape) == 1:
@@ -38,7 +38,7 @@ def scaled_scalar(number):
     if not np.isfinite(number):
         return 0.0
     else:
-        return np.min(np.max(number, -1.0), 1.0)
+        return np.min((np.max((number, -1.0)), 1.0))
 
 ############################## Mathematical functions ##############################
 
@@ -84,8 +84,8 @@ cgp_min1 = Primitive("min1", lambda x: np.min(x), 1)
 
 ############################## Comparison functions ##############################
 
-cgp_lt = Primitive("lower_than", lambda x, y: np.less(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (x < y).astype(float), 2)
-cgp_gt = Primitive("greater_than", lambda x, y: np.greater(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (x > y).astype(float), 2)
+cgp_lt = Primitive("lower_than", lambda x, y: np.less(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else np.array(x < y).astype(float), 2)
+cgp_gt = Primitive("greater_than", lambda x, y: np.greater(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else np.array(x > y).astype(float), 2)
 cgp_max2 = Primitive("max2", lambda x, y: np.maximum(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (np.maximum(x, y)), 2)
 cgp_min2 = Primitive("min2", lambda x, y: np.minimum(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (np.minimum(x, y)), 2)
 
@@ -134,8 +134,3 @@ cgp_nop = Primitive("nop", lambda x: x, 1)
 # TODO cgp_constvectord = Primitive("constvectord", lambda x: , 1)
 cgp_zeros = Primitive("zeros", lambda x: np.zeros(shape=x.shape) if isinstance(x, np.ndarray) else x, 1)
 cgp_ones = Primitive("ones", lambda x: np.ones(shape=x.shape) if isinstance(x, np.ndarray) else x, 1)
-
-############################## Other functions ##############################
-
-classic_mult = Primitive("classic_mult", lambda x, y: x*y, 2)
-classic_add = Primitive("classic_plus", lambda x, y: x+y, 2)

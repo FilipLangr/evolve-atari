@@ -35,18 +35,18 @@ config = Config(
     # Parameters defining the CGP graph.
     cartesian_params = {
         'primitive_set': primitiveSet,
-        'n_columns': 11,
+        'n_columns': 40,
         'n_rows': 1,
-        'n_back': 7, # How far can a node in the matrix look back for its inputs?
+        'n_back': 4, # How far can a node in the matrix look back for its inputs?
         'n_out': 18, # Number of output nodes, we have 18 actions.
     },
     # Parameters defining the optimisation process by one plus lambda.
     # https://cartesian.readthedocs.io/en/latest/_modules/cartesian/algorithm.html#oneplus
     oneplus_params = {
-        'lambda_': 4, # Number of offsprings per generation.
-        'n_mutations': 3, # Number of mutations per offspring.
+        'lambda_': 9, # Number of offsprings per generation.
+        'n_mutations': 4, # Number of mutations per offspring.
         'mutation_method': "active",
-        'maxiter': 100, # Maximum number of generations.
+        'maxiter': 1112, # Maximum number of generations.
         'maxfev': None, # Maximum number of function evaluations, None means infinite.
         'f_tol': -20, # Absolute error in metric(ind) between iterations that is acceptable for convergence.for
                      # ??? Stopping criterion ???
