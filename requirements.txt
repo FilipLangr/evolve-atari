@@ -1,4 +1,5 @@
 numpy
 scipy
-gym
+gym[all]
 cartesian
+tensorflow
