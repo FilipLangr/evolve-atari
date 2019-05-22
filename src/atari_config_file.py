@@ -12,13 +12,13 @@ if not os.path.exists("pickles/"):
     os.makedirs("pickles/")
 
 def save_result(res):
-    with open('pickles/best_res.pickle', 'wb') as f:
+    with open('pickles/best_res_rand13.pickle', 'wb') as f:
         pickle.dump(res, f)
 
 tb_writer = tf.summary.FileWriter('tb/')
 def tb_callback(res):
     print("Loss of the last generation (lower is better): %.3f" % res.fun)
-    val = summary_pb2.Summary.Value(tag="Training loss", simple_value=res.fun)
+    val = summary_pb2.Summary.Value(tag="Training loss rand13", simple_value=res.fun)
     summary = summary_pb2.Summary(value=[val])
     tb_writer.add_summary(summary, tb_callback.cntr)
     tb_callback.cntr += 1

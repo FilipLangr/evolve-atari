@@ -84,8 +84,8 @@ cgp_min1 = Primitive("min1", lambda x: np.min(x), 1)
 
 ############################## Comparison functions ##############################
 
-cgp_lt = Primitive("lower_than", lambda x, y: np.less(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else np.array(x < y).astype(float), 2)
-cgp_gt = Primitive("greater_than", lambda x, y: np.greater(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else np.array(x > y).astype(float), 2)
+cgp_lt = Primitive("lower_than", lambda x, y: np.less(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (x < y) * 1.0, 2)
+cgp_gt = Primitive("greater_than", lambda x, y: np.greater(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (x > y) * 1.0, 2)
 cgp_max2 = Primitive("max2", lambda x, y: np.maximum(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (np.maximum(x, y)), 2)
 cgp_min2 = Primitive("min2", lambda x, y: np.minimum(*common_submatrices(x, y)).astype(float) if (isinstance(x, np.ndarray) and isinstance(y, np.ndarray)) else (np.minimum(x, y)), 2)
 
@@ -125,7 +125,7 @@ cgp_push_front = Primitive("push_front", lambda x, y: np.append(np.array(y).resh
 cgp_set = Primitive("set", cgp_inner_set, 2)
 cgp_sum = Primitive("sum", lambda x: scaled_scalar(np.sum(x)), 1)
 cgp_transpose = Primitive("transpose", lambda x: np.transpose(x) if isinstance(x, np.ndarray) else x, 1)
-cgp_vecfromdouble= Primitive("vecfromdouble", lambda x: x if isinstance(x, np.ndarray) else np.array(x), 1)
+cgp_vecfromdouble= Primitive("vecfromdouble", lambda x: x if isinstance(x, np.ndarray) else np.array([x]), 1)
 
 ############################## Miscellaneous functions ##############################
 
