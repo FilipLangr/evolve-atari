@@ -17,7 +17,7 @@ def float2index(vector, y):
     """
     l = vector.shape[0]
     index_f = np.mean(np.abs((y + 1) / 2))
-    return int(np.min((np.max(((l-1) * index_f, 0)), l-1)))
+    return int(np.nan_to_num(np.min((np.max(((l-1) * index_f, 0)), l-1))))
 
 def common_submatrices(x, y):
     if len(x.shape) == 1:
