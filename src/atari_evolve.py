@@ -1,3 +1,4 @@
+import sys
 import gym
 from cartesian.cgp import *
 from cartesian.algorithm import oneplus, optimize_constants
@@ -53,6 +54,11 @@ def optimisation_fce(individual):
     return -np.mean(reward_sums)
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        random_state = int(sys.argv[1])
+    else:
+        random_state = None
+    config.oneplus_params["random_state"] = random_state
     res = train()
     save_result(res)
     print(res)
