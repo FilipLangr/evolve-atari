@@ -1,5 +1,5 @@
 numpy
 scipy
-gym[all]
+gym[atari]
 cartesian
 tensorflow
