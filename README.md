@@ -10,7 +10,13 @@ Make sure you have `python3.7` installed. Then install requirements with:
 
 ## Running
 
-In `src/` folder, a framework for training programs for openAI environments using Cartesian Genetic Programming is implemented. To perform training on Atari game (Boxing game by default), just run `python3.7 atari_evolve.py`. You can also specify training parameters and function pool in `atari_config_file.py`, `atari_primitive_set.py` and `cgp_functions.py`. Files with `cartpole_` prefix show our CGP framework on a simple CartPole example.
+In `src/` folder, a framework for training programs for openAI environments using Cartesian Genetic Programming is implemented. To perform training on Atari game (Boxing game by default), just run:
+
+`python3.7 atari_evolve.py [RANDOM_STATE]`
+
+where `[RANDOM_STATE]` is optional. You can also specify training parameters in `atari_config_file.py`, CGP functions pool in `atari_primitive_set.py` and review all available CGP functions in `cgp_functions.py`.
+
+Files with `cartpole_` prefix show our CGP framework on a simple CartPole example.
 
 ## Preliminary experiments
 Jupyter notebook `preliminary_experiments.ipynb` contains our simple implementation of evolutionary algorithm with tournament selection method, crossover using the blending method and mutation. It is used to evolve a weight vector for linear model of simple CartPole environment.
