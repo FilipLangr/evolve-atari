@@ -16,6 +16,12 @@ In `src/` folder, a framework for training programs for openAI environments usin
 
 where `[RANDOM_STATE]` is optional. You can also specify training parameters in `atari_config_file.py`, CGP functions pool in `atari_primitive_set.py` and review all available CGP functions in `cgp_functions.py`.
 
+To test your trained program, call:
+
+`python3.7 atari_test.py [PATH_TO_PICKLE] [TIMESTEPS]`
+
+where `[PATH_TO_PICKLE]` is path to saved program (by default in `pickles/` folder) and `[TIMESTEPS]` specify the maximal length of the game (positive integer).
+
 Files with `cartpole_` prefix show our CGP framework on a simple CartPole example.
 
 ## Preliminary experiments
