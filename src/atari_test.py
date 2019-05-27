@@ -4,13 +4,16 @@ import gym
 import pickle
 from atari_config_file import config
 from cartesian.cgp import *
+import time
 
-def test_final(f, timesteps=1000):
+def test_final(f, timesteps=1000, timesleep=None):
     env = gym.make(config.gym_params['game_name']).env
     observation = env.reset()
     observation = observation / 255.0
     for t in range(timesteps):
         env.render()
+        if timesleep:
+            time.sleep(timesleep)
         values = f(*np.transpose(observation))
         values = np.array([np.mean(y) for y in values])
         # Get the index of highest value, it's our action.
@@ -20,11 +23,13 @@ def test_final(f, timesteps=1000):
         observation = observation / 255.0
         if done:
             break
+    env.render()
+    input("Press any key to exit.")
     env.close()
 
 if __name__== '__main__':
     if len(sys.argv) < 3:
-        print("Please provide the path to saved OptimisationResult and number of timesteps.")
+        print("Please provide the path to saved OptimisationResult and number of timesteps. Optionally, specify argument for time.sleep().")
     else:
         path = sys.argv[1]
         timesteps = int(sys.argv[2])
@@ -32,4 +37,8 @@ if __name__== '__main__':
             atari_cgp = Cartesian("atari_cgp", **config.cartesian_params)
             res = pickle.load(f)
             final_func = compile(res.ind)
-            test_final(final_func, timesteps=timesteps)
+            if len(sys.argv) > 3:
+                timesleep = float(sys.argv[3])
+            else:
+                timesleep=None
+            test_final(final_func, timesteps=timesteps, timesleep=timesleep)
