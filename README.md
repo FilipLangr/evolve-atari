@@ -8,13 +8,15 @@ Make sure you have `python3.7` installed. Then install requirements with:
 
 `pip3.7 install -r requirements.txt`
 
-## Running
+## Training
 
 In `src/` folder, a framework for training programs for openAI environments using Cartesian Genetic Programming is implemented. To perform training on Atari game (Boxing game by default), just run:
 
 `python3.7 atari_evolve.py [RANDOM_STATE]`
 
 where `[RANDOM_STATE]` is optional. You can also specify training parameters in `atari_config_file.py`, CGP functions pool in `atari_primitive_set.py` and review all available CGP functions in `cgp_functions.py`.
+
+## Testing
 
 To test your trained program, call:
 
