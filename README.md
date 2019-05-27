@@ -20,7 +20,7 @@ To test your trained program, call:
 
 `python3.7 atari_test.py [PATH_TO_PICKLE] [TIMESTEPS] [time.sleep() ARGUMENT]`
 
-where `[PATH_TO_PICKLE]` is path to saved program (by default in `pickles/` folder) and `[TIMESTEPS]` specify the maximal length of the game (positive integer). Optional argument [time.sleep() ARGUMENT] specifies the time sleep between every TIMESTEP, if not provided, sleep is called.
+where `[PATH_TO_PICKLE]` is path to saved program (by default in `pickles/` folder) and `[TIMESTEPS]` specify the maximal length of the game (positive integer). Optional argument `[time.sleep() ARGUMENT]` specifies the time sleep between every TIMESTEP, if not provided, sleep is not called.
 
 Files with `cartpole_` prefix show our CGP framework on a simple CartPole example.
 
