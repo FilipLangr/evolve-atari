@@ -3,8 +3,7 @@ import gym
 from cartesian.cgp import *
 from cartesian.algorithm import oneplus, optimize_constants
 import numpy as np
-import time
-from atari_config_file import config, save_result
+from atari_config_file import config, loss_fce, save_result
 
 env = gym.make(config.gym_params['game_name']).env
 
@@ -21,21 +20,15 @@ def train():
 def optimisation_fce(individual):
     num_episodes = config.gym_params['num_episodes']
     timesteps = config.gym_params['timesteps']
-    reward_sums = np.zeros(num_episodes)
-    render = config.gym_params['render']
-
+    # Initialise an array where rewards will be stored.
+    rewards = np.zeros((num_episodes, timesteps))
     # Get evolved function.
-    #evolved_fce = individual
     evolved_fce = compile(individual)
     # Go through all episodes.
     for episode in range(num_episodes):
         observation = env.reset() / 255.0
-        rewards = np.zeros(timesteps)
         # Go through all timesteps.
         for t in range(timesteps):
-            if render:
-                env.render()
-                #time.sleep(0.05)
             # Evaluate evolved function and get 18 values for 18 actions.
             #values = evolved_fce(*np.transpose(observation), *consts)
             values = evolved_fce(*np.transpose(observation))
@@ -46,12 +39,11 @@ def optimisation_fce(individual):
             # Play the action.
             observation, reward, done, _ = env.step(action)
             observation = observation / 255.0
-            rewards[t] = reward
+            # Save reward to array of rewards.
+            rewards[episode, t] = reward
             if done:
                 break
-        reward_sums[episode] = np.sum(rewards)
-    # Return mean sum of rewards per episodes (negative because we minimise).
-    return -np.mean(reward_sums)
+    return loss_fce(rewards)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

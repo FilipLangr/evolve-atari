@@ -11,11 +11,9 @@ primitives = [
             cgp_add,
             cgp_aminus,
             cgp_mult,
-            # TODO cmult
             cgp_inv,
             cgp_abs,
             cgp_sqrt,
-            # TODO cgp_cpow
             cgp_ypow,
             cgp_expx,
             cgp_sinx,
@@ -41,17 +39,12 @@ primitives = [
             cgp_max2,
             cgp_min2,
 ############################## List processing functions ##############################
-            # TODO split_before
-            # TODO split_after
-            # TODO range_in
             cgp_index_y,
-            # TODO index_p
             cgp_vectorize,
             cgp_first,
             cgp_last,
             cgp_diff,
             cgp_avg_diff,
-            # TODO rotate
             cgp_reverse,
             cgp_push_back,
             cgp_push_front,
@@ -61,8 +54,6 @@ primitives = [
             cgp_vecfromdouble,
 ############################## Miscellaneous functions ##############################
             cgp_nop,
-            # TODO const
-            # TODO cgp_constvectord = Primitive("constvectord", lambda x: , 1)
             cgp_zeros,
             cgp_ones,
 
@@ -70,17 +61,5 @@ primitives = [
             Symbol("R"),
             Symbol("G"),
             Symbol("B"),
-
-            # TODO define this.
-            # Ephemeral constant is a function returning random value number.
-            #Ephemeral("random", rng.normal)
-            # Symbolic constant represents constant in the graph, we should have one for every function that needs one.
-            #Constant("C1"),
-            #Constant("C2"),
-            #Constant("C3"),
-            #Constant("C4")
-
-            # ??? Structural constants ??? We probably don't need this.
-            #Structural("structural", lambda x, y: max(x, y))
         ]
 primitiveSet = PrimitiveSet.create(primitives)
