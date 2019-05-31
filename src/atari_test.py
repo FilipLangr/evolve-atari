@@ -45,11 +45,14 @@ def test_final(f, timesteps=1000, timesleep=None):
     env.close()
 
 if __name__== '__main__':
-    if len(sys.argv) < 3:
-        print("Please provide the path to saved OptimisationResult and number of timesteps. Optionally, specify argument for time.sleep().")
+    if len(sys.argv) < 2:
+        print("Please provide the path to saved OptimisationResult. Optionally, specify number of timesteps and argument for time.sleep().")
     else:
         path = sys.argv[1]
-        timesteps = int(sys.argv[2])
+        if len(sys.argv) > 2:
+            timesteps = int(sys.argv[2])
+        else:
+            timesteps = 50000
         with open(path, 'rb') as f:
             atari_cgp = Cartesian("atari_cgp", **config.cartesian_params)
             res = pickle.load(f)

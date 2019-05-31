@@ -14,15 +14,15 @@ In `src/` folder, a framework for training programs for openAI environments usin
 
 `python3.7 atari_evolve.py [RANDOM_STATE]`
 
-where `[RANDOM_STATE]` is optional. You can also specify training parameters in `atari_config_file.py`, CGP functions pool in `atari_primitive_set.py` and review all available CGP functions in `cgp_functions.py`.
+where `[RANDOM_STATE]` is optional. You can also define loss function and training parameters in `atari_config_file.py`, CGP functions pool in `atari_primitive_set.py` and review all available CGP functions in `cgp_functions.py`.
 
 ## Testing
 
 To test your trained program, call:
 
-`python3.7 atari_test.py [PATH_TO_PICKLE] [TIMESTEPS] [time.sleep() ARGUMENT]`
+`python3.7 atari_test.py [PATH_TO_PICKLE] [TIMESTEPS] [time.sleep(ARG)]`
 
-where `[PATH_TO_PICKLE]` is path to saved program (by default in `pickles/` folder) and `[TIMESTEPS]` specify the maximal length of the game (positive integer). Optional argument `[time.sleep() ARGUMENT]` specifies the time sleep between every TIMESTEP, if not provided, sleep is not called.
+where `[PATH_TO_PICKLE]` is path to saved program (stored during training in `pickles/` folder by default). Optional argument `[TIMESTEPS]` specify the maximal length of the game (positive integer), if not provided, game is played to the end. Another optional argument `[time.sleep(ARG)]` specifies the time sleep between every TIMESTEP, if not provided, sleep is not called.
 
 Files with `cartpole_` prefix show our CGP framework on a simple CartPole example.
 

@@ -77,8 +77,7 @@ config = Config(
         'mutation_method': "active",
         'maxiter': 21000, # Maximum number of generations.
         'maxfev': None, # Maximum number of function evaluations, None means infinite.
-        'f_tol': -100, # Absolute error in metric(ind) between iterations that is acceptable for convergence.for
-                     # ??? Stopping criterion ???
+        'f_tol': -100, # Stopping criterion of loss to detect convergence.
         'n_jobs': 1, # Number of parallel jobs, if we go parallel.
         'random_state': None,
         'seed': None,
@@ -87,7 +86,7 @@ config = Config(
     # Parameters defining the openAI gym game.
     gym_params = {
         'game_name': 'Boxing-v0',
-        'num_episodes': 3, # Number of episodes (box rounds).
+        'num_episodes': 5, # Number of episodes (box rounds).
         'timesteps': 200, # Time steps of one episode (box round).
     }
 )
