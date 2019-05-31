@@ -7,6 +7,13 @@ from cartesian.cgp import *
 import time
 
 def test_final(f, timesteps=1000, timesleep=None):
+    """
+    Run the game with evolved program.
+    :param f: evolved program
+    :param timesteps: the length of the game
+    :param timesleep: sleep between each timestep.
+    :return:
+    """
     white_reward = 0
     black_reward = 0
     env = gym.make(config.gym_params['game_name']).env
@@ -16,14 +23,15 @@ def test_final(f, timesteps=1000, timesleep=None):
         env.render()
         if timesleep:
             time.sleep(timesleep)
+        # Evaluate evolved function and get 18 values for 18 actions.
         values = f(*np.transpose(observation))
         values = np.array([np.mean(y) for y in values])
-        # Get the index of highest value, it's our action.
+        # Get the index of the highest value, it's our action.
         action = np.argmax(values)
         # Play the action.
-        #action = np.random.randint(0, 18)
         observation, reward, done, _ = env.step(action)
         reward = int(reward)
+        # Save the score of both players.
         if reward > 0:
             white_reward += reward
         elif reward < 0:

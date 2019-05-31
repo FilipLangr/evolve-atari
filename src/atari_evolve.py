@@ -1,11 +1,15 @@
 import sys
 import gym
 from cartesian.cgp import *
-from cartesian.algorithm import oneplus, optimize_constants
+from cartesian.algorithm import oneplus
 import numpy as np
 from atari_config_file import config, loss_fce, save_result
+from shutil import copyfile
 
 env = gym.make(config.gym_params['game_name']).env
+
+def save_config():
+    copyfile("atari_config_file.py", "configs/best_res_rand%d.py" % config.oneplus_params["random_state"])
 
 def train():
     # Create CGP graph.
@@ -15,7 +19,6 @@ def train():
     env.close()
     return res
 
-#@optimize_constants
 #def optimisation_fce(individual, consts=()):
 def optimisation_fce(individual):
     num_episodes = config.gym_params['num_episodes']
@@ -30,11 +33,10 @@ def optimisation_fce(individual):
         # Go through all timesteps.
         for t in range(timesteps):
             # Evaluate evolved function and get 18 values for 18 actions.
-            #values = evolved_fce(*np.transpose(observation), *consts)
             values = evolved_fce(*np.transpose(observation))
             # If any value is matrix, take the average of it.
             values = np.array([np.mean(y) for y in values])
-            # Get the index of highest value, it's our action.
+            # Get the index of the highest value, it's our action.
             action = np.argmax(values)
             # Play the action.
             observation, reward, done, _ = env.step(action)
@@ -46,11 +48,16 @@ def optimisation_fce(individual):
     return loss_fce(rewards)
 
 if __name__ == '__main__':
+    # Set user-defined random state.
     if len(sys.argv) > 1:
         random_state = int(sys.argv[1])
     else:
         random_state = None
     config.oneplus_params["random_state"] = random_state
+    # Save config.
+    save_config()
+    # Train.
     res = train()
+    # Save and print the result.
     save_result(res)
     print(res)

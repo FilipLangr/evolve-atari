@@ -11,13 +11,16 @@ if not os.path.exists("tb/"):
     os.makedirs("tb/")
 if not os.path.exists("pickles/"):
     os.makedirs("pickles/")
+if not os.path.exists("configs/"):
+    os.makedirs("configs/")
 
 def save_result(res):
     # Save result object to file.
     with open('pickles/best_res_rand%d.pickle' % config.oneplus_params["random_state"], 'wb') as f:
         pickle.dump(res, f)
 
-best_res = np.inf
+# Stores the best achieved loss so far.
+best_loss = np.inf
 
 tb_writer = tf.summary.FileWriter('tb/')
 def tb_callback(res):
@@ -27,18 +30,26 @@ def tb_callback(res):
     summary = summary_pb2.Summary(value=[val])
     tb_writer.add_summary(summary, tb_callback.cntr)
     tb_callback.cntr += 1
-    global best_res
-    if res.fun < best_res:
-        best_res = res.fun
+    global best_loss
+    if res.fun < best_loss:
+        best_loss = res.fun
         save_result(res)
 tb_callback.cntr = 0
 
 def loss_fce(rewards):
     """
     Computes loss from 2D array of rewards.
-    :param rewards: a row contains rewards per one episode, #rows is the number of episodes.
-    :return: loss value
+    :param rewards: numpy ndarray of rewards, shape = (episodes, timesteps).
+    :return: loss
     """
+
+    # Double the number of timesteps when agent plays well.
+    global best_loss
+    if best_loss < -14.0:
+        config.gym_params['timesteps'] *= 2
+        best_loss = np.inf
+        print("Timesteps doubled to %d" % config.gym_params['timesteps'])
+
     # Emphasize opponent's punches.
     rewards = np.where(rewards < 0, rewards * 2, rewards)
     # Sum the rewards and consider the worst episode.
@@ -76,7 +87,7 @@ config = Config(
     # Parameters defining the openAI gym game.
     gym_params = {
         'game_name': 'Boxing-v0',
-        'num_episodes': 2, # Number of box rounds.
-        'timesteps': 1000, # Time steps of one box round.
+        'num_episodes': 3, # Number of episodes (box rounds).
+        'timesteps': 200, # Time steps of one episode (box round).
     }
 )
